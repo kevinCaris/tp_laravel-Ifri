@@ -44,6 +44,9 @@
                     </div>
                 </div>
                 @endforeach
+                <div class="w-full p-1">
+                    {{ $cars->links() }}
+                </div>
             </div>
         </div>
     </div>
