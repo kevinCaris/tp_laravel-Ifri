@@ -22,6 +22,9 @@
                         <div class="my-auto">
                             {{$car->name}}
                         </div>
+                        <div class="my-auto mx-2">
+                            {{$car->status ? 'Disponible' : 'Indisponible'}}
+                        </div>
                         @auth
                         <div class="flex">
                             <a href="{{ route('cars.edit', $car) }}"
