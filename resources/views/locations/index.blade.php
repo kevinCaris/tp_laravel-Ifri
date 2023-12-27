@@ -4,13 +4,6 @@
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 Liste des locations
             </h2>
-
-            @auth
-            <a href="{{ route('location.create') }}"
-                class="dark:text-white px-4 py-2 focus:outline rounded-lg bg-blue-900">
-                {{ __('Ajouter une nouvelle location') }}
-            </a>
-            @endauth
         </div>
     </x-slot>
 

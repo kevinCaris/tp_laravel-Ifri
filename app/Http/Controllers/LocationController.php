@@ -62,7 +62,8 @@ class LocationController extends Controller
      */
     public function show(Location $location)
     {
-        return view('locations.show', ['location' => $location]);
+        $locations = Location::with('car')->where('user_id', auth()->user()->id)->paginate(10);
+        return view('locations.show', compact('locations'));
     }
 
     /**

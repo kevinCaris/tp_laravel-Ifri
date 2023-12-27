@@ -15,11 +15,16 @@
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Accueil') }}
                     </x-nav-link>
-                    <x-nav-link href="{{ route('cars.index') }}" :active="request()->routeIs('dashboard')">
+                    <x-nav-link href="{{ route('cars.index') }}" :active="request()->routeIs('cars.index')">
                         {{ __('Voitures') }}
                     </x-nav-link>
-                    <x-nav-link href="{{ route('location.index') }}" :active="request()->routeIs('dashboard')">
+                    @auth
+                    <x-nav-link href="{{ route('list-locations') }}" :active="request()->routeIs('list-locations')">
                         {{ __('Mes locations') }}
+                    </x-nav-link>
+                    @endauth
+                    <x-nav-link href="{{ route('location.index') }}" :active="request()->routeIs('location.index')">
+                        {{ __('Toute les locations') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -177,11 +182,16 @@
             <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Accueil') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="{{ route('cars.index') }}" :active="request()->routeIs('dashboard')">
+            <x-responsive-nav-link href="{{ route('cars.index') }}" :active="request()->routeIs('cars.index')">
                 {{ __('Voitures') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link href="{{ route('location.index') }}" :active="request()->routeIs('dashboard')">
-                {{ __('Location') }}
+            @auth
+            <x-responsive-nav-link href="{{ route('list-locations') }}" :active="request()->routeIs('list-locations')">
+                {{ __('Mes Locations') }}
+            </x-responsive-nav-link>
+            @endauth
+            <x-responsive-nav-link href="{{ route('location.index') }}" :active="request()->routeIs('location.index')">
+                {{ __('Toutes les locations') }}
             </x-responsive-nav-link>
         </div>
 

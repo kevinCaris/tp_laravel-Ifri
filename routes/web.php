@@ -3,6 +3,8 @@
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\LocationController;
 use App\Models\Car;
+use App\Models\Location;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,7 +30,16 @@ Route::get('location-create/{id}', function ($id) {
     return view('locations.create', ['car' => $car]);
 })->name('louer');
 
+Route::get('list-locations', function () {
+    $locations = Location::with('car')->where('user_id', auth()->user()->id)->paginate(10);
+    return view('locations.show', compact('locations'));
+})->name('list-locations');
+
 Route::get('/', function () {
+    return view('dashboard');
+})->name('dashboard');
+
+Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
