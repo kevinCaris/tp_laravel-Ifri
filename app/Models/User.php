@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -59,7 +60,23 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    public function cars() {
-        $this->hasMany(Car::class, 'user_id', 'id');
+    /**
+     * Get all of the car for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function car(): HasMany
+    {
+        return $this->hasMany(Car::class, 'user_id', 'id');
+    }
+
+    /**
+     * Get all of the location for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function location(): HasMany
+    {
+        return $this->hasMany(Location::class, 'user_id', 'id');
     }
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Car extends Model
 {
@@ -14,11 +15,27 @@ class Car extends Model
         'description',
         'price',
         'status',
+        'location_id',
         'user_id',
     ];
 
-    public function user()
+    /**
+     * Get the user that owns the Car
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user(): BelongsTo
     {
-        $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    /**
+     * Get the location that owns the Car
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function location(): BelongsTo
+    {
+        return $this->belongsTo(Location::class, 'location_id');
     }
 }

@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('locations', function (Blueprint $table) {
             $table->id();
+            $table->integer('date');
+            $table->double('price');
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
     }

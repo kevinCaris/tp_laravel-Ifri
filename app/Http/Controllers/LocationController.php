@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Car;
 use App\Models\Location;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class LocationController extends Controller
 {
@@ -12,7 +14,8 @@ class LocationController extends Controller
      */
     public function index()
     {
-        //
+        $locations = Location::with(['user', 'car'])->paginate(10);
+        return view('locations.index', compact('locations'));
     }
 
     /**
@@ -20,7 +23,8 @@ class LocationController extends Controller
      */
     public function create()
     {
-        //
+        Gate::allowIf(auth()->user());
+        return view('locations.create',);
     }
 
     /**
@@ -28,7 +32,26 @@ class LocationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Gate::allowIf(auth()->user());
+        $request->validate([
+            'date' => 'required',
+            'user_id' => 'required|exists:App\Models\User,id',
+            'car_id' => 'required|exists:App\Models\Car,id',
+        ]);
+
+        $car = Car::find($request->input("car_id"));
+        $location = new Location();
+        $location->date = $request->input("date");
+        $location->price = $request->input("date") * $car->price;
+        $location->user_id = $request->input("user_id");
+
+        $location->save();
+
+        $location->car()->save($car);
+
+
+
+        return redirect()->route('location.index')->with('success', 'Location added successfully');
     }
 
     /**
@@ -36,7 +59,7 @@ class LocationController extends Controller
      */
     public function show(Location $location)
     {
-        //
+        return view('locations.show', ['location' => $location]);
     }
 
     /**
@@ -44,7 +67,8 @@ class LocationController extends Controller
      */
     public function edit(Location $location)
     {
-        //
+        Gate::allowIf(auth()->user());
+        return view('location.edit', ['location' => $location]);
     }
 
     /**
@@ -52,7 +76,25 @@ class LocationController extends Controller
      */
     public function update(Request $request, Location $location)
     {
-        //
+        Gate::allowIf(auth()->user());
+        $request->validate([
+            'start' => 'required',
+            'end' => 'required',
+            'user_id' => 'required|exists:App\Models\User,id',
+        ]);
+
+        $location->start = $request->input("start");
+        $location->end = $request->input("end");
+        $location->user_id = $request->input("user_id");
+
+        $location->update();
+
+        if (!empty($request->car_id)) {
+            $car = Car::find($request->input("car_id"));
+            $location->car()->save($car);
+        }
+
+        return redirect()->route('location.index')->with('success', 'Location updated successfully');
     }
 
     /**
@@ -60,6 +102,9 @@ class LocationController extends Controller
      */
     public function destroy(Location $location)
     {
-        //
+        Gate::allowIf(auth()->user());
+        $location->delete();
+
+        return redirect()->route('location.index')->with('success', 'Location deleted successfully');
     }
 }

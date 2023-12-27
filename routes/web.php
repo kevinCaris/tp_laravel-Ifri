@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\CarController;
+use App\Http\Controllers\LocationController;
+use App\Models\Car;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +21,12 @@ Route::get('/', function () {
 });
 
 Route::resource('cars', CarController::class);
+Route::resource('location', LocationController::class);
+
+Route::get('location-create/{id}', function ($id) {
+    $car = Car::find($id);
+    return view('locations.create', ['car' => $car]);
+})->name('louer');
 
 Route::middleware([
     'auth:sanctum',
