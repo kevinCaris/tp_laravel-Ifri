@@ -21,25 +21,19 @@
                 <div class="p-4 text-white">
                     <div class="flex justify-between">
                         <div class="my-auto">
-                            {{$loc}}
+                            Voiture loué : {{$loc->car->name}}
                         </div>
                         <div class="my-auto mx-2">
-                            {{$loc->price}}
+                            Prix : {{$loc->price}}
                         </div>
                         @auth
                         <div class="flex">
-
-                            <a href="{{ route('location.edit', $loc) }}"
-                                class="dark:text-white mx-2 px-4 py-2 focus:outline rounded-lg bg-blue-900">
-                                {{ __('Modifier') }}
-                            </a>
-
                             <form method="POST" action="{{ route('location.destroy', $loc) }}"
                                 class="dark:text-white mx-2 px-4 py-2 focus:outline rounded-lg bg-blue-900" x-data>
                                 {{ csrf_field() }}
                                 @method('DELETE')
                                 <button>
-                                    {{ __('Supprimer') }}
+                                    {{ __('Terminer la location') }}
                                 </button>
                             </form>
                         </div>
