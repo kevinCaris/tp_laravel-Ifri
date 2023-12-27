@@ -4,6 +4,7 @@ use App\Http\Controllers\CarController;
 use App\Http\Controllers\LocationController;
 use App\Models\Car;
 use App\Models\Location;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -42,6 +43,21 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
+
+Route::get('users', function () {
+    $users = User::paginate(10);
+    return view('userlist', compact('users'));
+})->name('users');
+
+Route::get('listlocate/{id}', function ($id) {
+    $user = User::with('location')->find($id);
+    return view('locatelist', ['user' => $user]);
+})->name('listlocate');
+
+Route::get('userslocate', function(){
+    $users = User::has('location')->paginate(10);
+    return view('userlocate', compact('users'));
+})->name('userslocate');
 
 // Route::middleware([
 //     'auth:sanctum',
