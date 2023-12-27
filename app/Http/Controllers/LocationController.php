@@ -49,6 +49,9 @@ class LocationController extends Controller
 
         $location->car()->save($car);
 
+        $car->status = false;
+
+        $car->update();
 
 
         return redirect()->route('location.index')->with('success', 'Location added successfully');
@@ -91,8 +94,12 @@ class LocationController extends Controller
 
         if (!empty($request->car_id)) {
             $car = Car::find($request->input("car_id"));
+            $oldcar = $location->car;
+            $oldcar->status = true;
             $location->car()->save($car);
         }
+
+
 
         return redirect()->route('location.index')->with('success', 'Location updated successfully');
     }
@@ -103,6 +110,9 @@ class LocationController extends Controller
     public function destroy(Location $location)
     {
         Gate::allowIf(auth()->user());
+        $location->car->status = true;
+        $location->car->update();
+        $location->car()->update(['location_id' => null]); // remove the profile association
         $location->delete();
 
         return redirect()->route('location.index')->with('success', 'Location deleted successfully');

@@ -27,10 +27,12 @@
                         </div>
                         @auth
                         <div class="flex">
+                            @if ($car->status)
                             <a href="{{ route('louer', $car->id) }}"
                                 class="dark:text-white mx-2 px-4 py-2 focus:outline rounded-lg bg-blue-900">
                                 {{ __('Louer') }}
                             </a>
+                            @endif
                             <a href="{{ route('cars.edit', $car) }}"
                                 class="dark:text-white mx-2 px-4 py-2 focus:outline rounded-lg bg-blue-900">
                                 {{ __('Modifier') }}
