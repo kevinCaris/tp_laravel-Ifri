@@ -195,6 +195,12 @@
             <x-responsive-nav-link href="{{ route('list-locations') }}" :active="request()->routeIs('list-locations')">
                 {{ __('Mes Locations') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('userslocate') }}" :active="request()->routeIs('list-locations')">
+                {{ __('Liste utilisateurs ayant fait une location') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('users') }}" :active="request()->routeIs('list-locations')">
+                {{ __('Liste utilisateurs') }}
+            </x-responsive-nav-link>
             @endauth
             <x-responsive-nav-link href="{{ route('location.index') }}" :active="request()->routeIs('location.index')">
                 {{ __('Toutes les locations') }}

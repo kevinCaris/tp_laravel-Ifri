@@ -11,13 +11,13 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
                 @foreach ($locations as $loc)
-                <div class="p-4 text-white">
-                    <div class="flex justify-between">
+                <div class="p-4 border-b text-white">
+                    <div class="flex flex-wrap justify-between">
                         <div class="my-auto">
-                            Voiture loué : {{$loc->car->name}}
+                            {{$loc->car->name}} :
                         </div>
                         <div class="my-auto mx-2">
-                            Prix : {{$loc->price}}
+                            {{$loc->price}} FCFA
                         </div>
                         @auth
                         <div class="flex">
