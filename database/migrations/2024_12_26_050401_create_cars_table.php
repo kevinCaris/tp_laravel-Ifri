@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('description');
             $table->double('price');
             $table->boolean('status')->default(true);
+            $table->string('banner_image');
             $table->foreignId('user_id')->constrained();
             $table->foreignId('location_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();

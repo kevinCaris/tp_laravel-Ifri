@@ -20,7 +20,5 @@ class DatabaseSeeder extends Seeder
             'name' => 'Goerges AYENI',
             'email' => 'admin@mail.com',
         ]);
-
-        Car::factory(60)->create();
     }
 }

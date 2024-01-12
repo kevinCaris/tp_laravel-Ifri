@@ -36,14 +36,18 @@ class CarController extends Controller
         $request->validate([
             'name' => 'string|max:255|required',
             'description' => 'required',
+            'banner_image' => 'required',
             'price' => 'required',
             'user_id' => 'required|exists:App\Models\User,id',
         ]);
+
+        $nomFichier = basename($request->file('banner_image')->store('public/images'));
 
         $car = new Car();
         $car->name = $request->input("name");
         $car->description = $request->input("description");
         $car->price = $request->input("price");
+        $car->banner_image = "storage/images/" . $nomFichier;
         $car->user_id = $request->input("user_id");
 
         $car->save();
@@ -69,7 +73,7 @@ class CarController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified resource in storage.$request->file('banner_image')->store('public/images');
      */
     public function update(Request $request, Car $car)
     {
@@ -80,6 +84,11 @@ class CarController extends Controller
             'price' => 'required',
             'user_id' => 'required|exists:App\Models\User,id',
         ]);
+
+        if($request->hasFile('banner_image')) {
+            $nomFichier = basename($request->file('banner_image')->store('public/images'));
+            $car->banner_image = "storage/images/" . $nomFichier;
+        }
 
         $car->name = $request->input("name");
         $car->description = $request->input("description");

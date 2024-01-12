@@ -15,6 +15,9 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white p-6 flex-wrap flex justify-between text-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
                 <div>
+                    <img src="{{ $car->banner_image }}" alt="{{ $car->banner_image }}">
+                </div>
+                <div>
                     Prix de la location : {{ $car->price }}
                 </div>
                 <div>

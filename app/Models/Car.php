@@ -16,6 +16,7 @@ class Car extends Model
         'price',
         'status',
         'location_id',
+        'banner_image',
         'user_id',
     ];
 

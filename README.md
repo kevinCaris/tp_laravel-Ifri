@@ -4,6 +4,7 @@
 - `setup the new .env file`
 - `composer update && npm install`
 - `run mysql database`
+- `php artisan storage:link`
 - `npm run build && php artisan serve`
 
 

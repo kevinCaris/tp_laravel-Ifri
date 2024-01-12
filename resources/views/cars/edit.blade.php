@@ -14,7 +14,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-6">
-                <form action="{{ route('cars.update', $car) }}" method="post">
+                <form action="{{ route('cars.update', $car) }}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     @method('PUT')
 
@@ -42,6 +42,12 @@
                             type="number" name="price" required autofocus autocomplete="price"
                             value="{{ $car->price }}" />
                         <x-input-error for="price" class="mt-2" />
+                    </div>
+                    
+                    <div>
+                        <x-label for="banner_image" value="{{ __('Image de la voiture') }}" />
+                        <input id="banner_image" name="banner_image" type="file" accept="image/*" />
+                        <x-input-error for="banner_image" class="mt-2" />
                     </div>
 
                     <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">

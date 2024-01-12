@@ -14,7 +14,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-6">
-                <form action="{{ route('cars.store') }}" method="post">
+                <form action="{{ route('cars.store') }}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
 
                     <div>
@@ -36,6 +36,12 @@
                         <input id="price"
                             class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
                             type="number" name="price" required autofocus autocomplete="price" />
+                    </div>
+
+                    <div>
+                        <x-label for="banner_image" value="{{ __('Image de la voiture') }}" />
+                        <input id="banner_image" name="banner_image" type="file" accept="image/*" />
+                        <x-input-error for="banner_image" class="mt-2" />
                     </div>
 
                     <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">

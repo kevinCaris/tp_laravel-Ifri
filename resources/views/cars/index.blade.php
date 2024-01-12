@@ -21,6 +21,9 @@
                     <div class="flex flex-wrap justify-between">
                         <div class="flex flex-wrap">
                             <div class="my-auto">
+                                <img src="{{ $car->banner_image }}" alt="{{ $car->banner_image }}">
+                            </div>
+                            <div class="my-auto">
                                 {{$car->name}} : 
                             </div>
                             <div class="my-auto mx-2">
