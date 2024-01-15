@@ -18,6 +18,10 @@
                         </div>
                         @auth
                         <div class="flex">
+                            <a href="{{ route('role', $user->id) }}"
+                                class="dark:text-white mx-2 px-4 py-2 focus:outline rounded-lg bg-blue-900">
+                                {{ __($user->role == 1 ? "Transformer en simple user" : "Transformer en administrateur") }}
+                            </a>
                             <a href="{{ route('listlocate', $user->id) }}"
                                 class="dark:text-white mx-2 px-4 py-2 focus:outline rounded-lg bg-blue-900">
                                 {{ __('Voir les voitures louées') }}

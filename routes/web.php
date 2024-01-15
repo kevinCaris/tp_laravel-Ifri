@@ -47,7 +47,7 @@ Route::get('/dashboard', function () {
 })->name('dashboard');
 
 Route::get('users', function () {
-    Gate::allowIf(auth()->user() && auth()->user()->role == 1);
+    Gate::allowIf(auth()->user());
     $users = User::paginate(10);
     return view('userlist', compact('users'));
 })->name('users');
@@ -64,8 +64,8 @@ Route::get('userslocate', function(){
     return view('userlocate', compact('users'));
 })->name('userslocate');
 
-Route::get('giverole', function($id){
-    Gate::allowIf(auth()->user() && auth()->user()->role == 1);
+Route::get('giverole/{id}', function($id){
+    Gate::allowIf(auth()->user());
     $user = User::findOrFail($id);
 
     if($user->role == 0)
@@ -78,7 +78,9 @@ Route::get('giverole', function($id){
         $user->role = 0;
         $user->update();
     }
-});
+
+    return redirect()->back();
+})->name('role');
 
 // Route::middleware([
 //     'auth:sanctum',
