@@ -6,6 +6,7 @@ use App\Models\Car;
 use App\Models\Location;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,6 +33,7 @@ Route::get('location-create/{id}', function ($id) {
 })->name('louer');
 
 Route::get('list-locations', function () {
+    Gate::allowIf(auth()->user());
     $locations = Location::with('car')->where('user_id', auth()->user()->id)->paginate(10);
     return view('locations.show', compact('locations'));
 })->name('list-locations');
@@ -45,19 +47,38 @@ Route::get('/dashboard', function () {
 })->name('dashboard');
 
 Route::get('users', function () {
+    Gate::allowIf(auth()->user() && auth()->user()->role == 1);
     $users = User::paginate(10);
     return view('userlist', compact('users'));
 })->name('users');
 
 Route::get('listlocate/{id}', function ($id) {
+    Gate::allowIf(auth()->user() && auth()->user()->role == 1);
     $user = User::with('location')->find($id);
     return view('locatelist', ['user' => $user]);
 })->name('listlocate');
 
 Route::get('userslocate', function(){
+    Gate::allowIf(auth()->user() && auth()->user()->role == 1);
     $users = User::has('location')->paginate(10);
     return view('userlocate', compact('users'));
 })->name('userslocate');
+
+Route::get('giverole', function($id){
+    Gate::allowIf(auth()->user() && auth()->user()->role == 1);
+    $user = User::findOrFail($id);
+
+    if($user->role == 0)
+    {
+        $user->role = 1;
+        $user->update();
+    }
+    else
+    {
+        $user->role = 0;
+        $user->update();
+    }
+});
 
 // Route::middleware([
 //     'auth:sanctum',

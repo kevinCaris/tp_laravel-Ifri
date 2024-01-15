@@ -6,9 +6,11 @@
             </h2>
 
             @auth
+            @if (Auth::user()->role == 1)
             <a href="{{ route('cars.create') }}" class="dark:text-white px-4 py-2 focus:outline rounded-lg bg-blue-900">
                 {{ __('Ajouter une nouvelle voiture') }}
             </a>
+            @endif
             @endauth
         </div>
     </x-slot>

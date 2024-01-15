@@ -23,7 +23,7 @@ class CarController extends Controller
      */
     public function create()
     {
-        Gate::allowIf(auth()->user());
+        Gate::allowIf(auth()->user() && auth()->user()->role == 1);
         return view('cars.create');
     }
 
@@ -32,7 +32,7 @@ class CarController extends Controller
      */
     public function store(Request $request)
     {
-        Gate::allowIf(auth()->user());
+        Gate::allowIf(auth()->user() && auth()->user()->role == 1);
         $request->validate([
             'name' => 'string|max:255|required',
             'description' => 'required',
@@ -68,7 +68,7 @@ class CarController extends Controller
      */
     public function edit(Car $car)
     {
-        Gate::allowIf(auth()->user());
+        Gate::allowIf(auth()->user() && auth()->user()->role == 1);
         return view('cars.edit', ['car' => $car]);
     }
 
@@ -77,7 +77,7 @@ class CarController extends Controller
      */
     public function update(Request $request, Car $car)
     {
-        Gate::allowIf(auth()->user());
+        Gate::allowIf(auth()->user() && auth()->user()->role == 1);
         $request->validate([
             'name' => 'string|max:255|required',
             'description' => 'required',
@@ -105,7 +105,7 @@ class CarController extends Controller
      */
     public function destroy(Car $car)
     {
-        Gate::allowIf(auth()->user());
+        Gate::allowIf(auth()->user() && auth()->user()->role == 1);
         $car->delete();
 
         return redirect()->route('cars.index')->with('success', 'Car deleted successfully');

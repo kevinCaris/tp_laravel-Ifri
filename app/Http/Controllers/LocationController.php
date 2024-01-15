@@ -62,6 +62,7 @@ class LocationController extends Controller
      */
     public function show(Location $location)
     {
+        Gate::allowIf(auth()->user() && auth()->user()->role == 1);
         $locations = Location::with('car')->where('user_id', auth()->user()->id)->paginate(10);
         return view('locations.show', compact('locations'));
     }
@@ -71,7 +72,7 @@ class LocationController extends Controller
      */
     public function edit(Location $location)
     {
-        Gate::allowIf(auth()->user());
+        Gate::allowIf(auth()->user() && auth()->user()->role == 1);
         return view('location.edit', ['location' => $location]);
     }
 
@@ -80,7 +81,7 @@ class LocationController extends Controller
      */
     public function update(Request $request, Location $location)
     {
-        Gate::allowIf(auth()->user());
+        Gate::allowIf(auth()->user() && auth()->user()->role == 1);
         $request->validate([
             'start' => 'required',
             'end' => 'required',
@@ -115,7 +116,7 @@ class LocationController extends Controller
         $location->car->update();
         $location->car()->update(['location_id' => null]); // remove the profile association
         $location->delete();
-
+        
         return redirect()->route('location.index')->with('success', 'Location deleted successfully');
     }
 }
