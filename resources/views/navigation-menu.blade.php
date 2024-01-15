@@ -26,14 +26,16 @@
                         <x-nav-link href="{{ route('userslocate') }}" :active="request()->routeIs('userslocate')">
                             {{ __('Liste utilisateurs ayant fait une location'.Auth::user()->role) }}
                         </x-nav-link>
-                        <x-nav-link href="{{ route('users') }}" :active="request()->routeIs('users')">
-                            {{ __('Liste utilisateurs') }}
-                        </x-nav-link>
+                        
                         <x-nav-link href="{{ route('location.index') }}" :active="request()->routeIs('location.index')">
                             {{ __('Toute les locations') }}
                         </x-nav-link>
                         
+                        
                         @endif
+                        <x-nav-link href="{{ route('users') }}" :active="request()->routeIs('users')">
+                            {{ __('Liste utilisateurs') }}
+                        </x-nav-link>
                     @endauth
                 </div>
             </div>
