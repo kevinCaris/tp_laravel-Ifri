@@ -39,7 +39,10 @@ Route::get('list-locations', function () {
 })->name('list-locations');
 
 Route::get('/', function () {
-    return view('dashboard');
+
+    $car = Car::paginate(3);
+
+    return view('dashboard', ['cars' => $car]);
 })->name('dashboard');
 
 Route::get('/dashboard', function () {
