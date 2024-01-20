@@ -3,7 +3,8 @@
 - `copy .env.exemple to .env`
 - `setup the new .env file`
 - `composer update && npm install`
-- `run mysql database`
+- run mysql database
+- `php artisan migrate`
 - `php artisan storage:link`
 - `npm run build && php artisan serve`
 
