@@ -30,8 +30,6 @@
                         <x-nav-link href="{{ route('location.index') }}" :active="request()->routeIs('location.index')">
                             {{ __('Toute les locations') }}
                         </x-nav-link>
-                        
-                        
                         @endif
                         <x-nav-link href="{{ route('users') }}" :active="request()->routeIs('users')">
                             {{ __('Liste utilisateurs') }}
