@@ -11,4 +11,3 @@
 
 If you want to run the project in dev mode use `npm run dev` instead of build in another terminal window. 
 
-### By Georges AYENI
